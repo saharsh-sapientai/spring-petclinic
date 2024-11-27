@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.validation.Valid;
@@ -70,6 +71,21 @@ class OwnerController {
 	@GetMapping("/owners/new")
 	public String initCreationForm() {
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+	}
+
+	@PostMapping(value = "/owners/new-owner", consumes = {"application/json"})
+	public String createNewOwner(
+		@RequestBody Owner owner,
+		RedirectAttributes redirectAttributes
+	) {
+		if (owner == null) {
+			redirectAttributes.addFlashAttribute("error", "There was an error in creating the owner.");
+			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		}
+
+		this.owners.save(owner);
+		redirectAttributes.addFlashAttribute("message", "New Owner Created");
+		return "redirect:/owners/" + owner.getId();
 	}
 
 	@PostMapping("/owners/new")
