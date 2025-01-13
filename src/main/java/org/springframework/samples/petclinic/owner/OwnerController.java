@@ -51,8 +51,8 @@ class OwnerController {
 
 	private final OwnerRepository owners;
 
-	public OwnerController(OwnerRepository clinicService) {
-		this.owners = clinicService;
+	public OwnerController(OwnerRepository owners) {
+		this.owners = owners;
 	}
 
 	@InitBinder
