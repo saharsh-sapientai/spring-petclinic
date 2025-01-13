@@ -73,11 +73,8 @@ class OwnerController {
 		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
 	}
 
-	@PostMapping(value = "/owners/new-owner", consumes = {"application/json"})
-	public String createNewOwner(
-		@RequestBody Owner owner,
-		RedirectAttributes redirectAttributes
-	) {
+	@PostMapping(value = "/owners/new-owner", consumes = { "application/json" })
+	public String createNewOwner(@RequestBody Owner owner, RedirectAttributes redirectAttributes) {
 		if (owner == null) {
 			redirectAttributes.addFlashAttribute("error", "There was an error in creating the owner.");
 			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
